@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  wordpress:
+    image: wordpress # Je télécharge l'image wordpress
+    ports: # Ports utilisé pour accéder à wordpress
+      - 8080:80
+    environment: # Variable d'environnements propres à wordpress.
+      WORDPRESS_DB_HOST: db # Le nom de domaine de la base de donnée liée au wordpress
+      WORDPRESS_DB_USER: exampleuser # Utilisateur ayant le droit de connexion à la bdd
+      WORDPRESS_DB_PASSWORD: examplepass # Mots de passe de cet utilisateur
+      WORDPRESS_DB_NAME: exampledb # Nom de la base de donnée
+    volumes:
+      - ./wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: 'always'
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - .db:/var/lib/mysql
+
+volumes:
+  wordpress_2:
+  db_2:
